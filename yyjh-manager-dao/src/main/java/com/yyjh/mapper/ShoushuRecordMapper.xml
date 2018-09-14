@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyjh.mapper.ShoushuRecordMapper">
+  <resultMap id="BaseResultMap" type="com.yyjh.pojo.ShoushuRecord">
+    <result column="shoushu_id" jdbcType="INTEGER" property="shoushuId" />
+    <result column="shoushu_type" jdbcType="VARCHAR" property="shoushuType" />
+    <result column="shoushu_time" jdbcType="TIMESTAMP" property="shoushuTime" />
+    <result column="Before_judge" jdbcType="VARCHAR" property="beforeJudge" />
+    <result column="After_judge" jdbcType="VARCHAR" property="afterJudge" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    shoushu_id, shoushu_type, shoushu_time, Before_judge, After_judge
+  </sql>
+  <select id="selectByExample" parameterType="com.yyjh.pojo.ShoushuRecordExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shoushu_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.yyjh.pojo.ShoushuRecordExample">
+    delete from shoushu_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yyjh.pojo.ShoushuRecord">
+    insert into shoushu_record (shoushu_id, shoushu_type, shoushu_time, 
+      Before_judge, After_judge)
+    values (#{shoushuId,jdbcType=INTEGER}, #{shoushuType,jdbcType=VARCHAR}, #{shoushuTime,jdbcType=TIMESTAMP}, 
+      #{beforeJudge,jdbcType=VARCHAR}, #{afterJudge,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyjh.pojo.ShoushuRecord">
+    insert into shoushu_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shoushuId != null">
+        shoushu_id,
+      </if>
+      <if test="shoushuType != null">
+        shoushu_type,
+      </if>
+      <if test="shoushuTime != null">
+        shoushu_time,
+      </if>
+      <if test="beforeJudge != null">
+        Before_judge,
+      </if>
+      <if test="afterJudge != null">
+        After_judge,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shoushuId != null">
+        #{shoushuId,jdbcType=INTEGER},
+      </if>
+      <if test="shoushuType != null">
+        #{shoushuType,jdbcType=VARCHAR},
+      </if>
+      <if test="shoushuTime != null">
+        #{shoushuTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="beforeJudge != null">
+        #{beforeJudge,jdbcType=VARCHAR},
+      </if>
+      <if test="afterJudge != null">
+        #{afterJudge,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yyjh.pojo.ShoushuRecordExample" resultType="java.lang.Long">
+    select count(*) from shoushu_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update shoushu_record
+    <set>
+      <if test="record.shoushuId != null">
+        shoushu_id = #{record.shoushuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.shoushuType != null">
+        shoushu_type = #{record.shoushuType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shoushuTime != null">
+        shoushu_time = #{record.shoushuTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.beforeJudge != null">
+        Before_judge = #{record.beforeJudge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.afterJudge != null">
+        After_judge = #{record.afterJudge,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update shoushu_record
+    set shoushu_id = #{record.shoushuId,jdbcType=INTEGER},
+      shoushu_type = #{record.shoushuType,jdbcType=VARCHAR},
+      shoushu_time = #{record.shoushuTime,jdbcType=TIMESTAMP},
+      Before_judge = #{record.beforeJudge,jdbcType=VARCHAR},
+      After_judge = #{record.afterJudge,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

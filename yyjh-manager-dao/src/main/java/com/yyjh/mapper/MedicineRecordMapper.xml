@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyjh.mapper.MedicineRecordMapper">
+  <resultMap id="BaseResultMap" type="com.yyjh.pojo.MedicineRecord">
+    <result column="m_record_id" jdbcType="INTEGER" property="mRecordId" />
+    <result column="m_type" jdbcType="VARCHAR" property="mType" />
+    <result column="m_method" jdbcType="VARCHAR" property="mMethod" />
+    <result column="m_quantity" jdbcType="VARCHAR" property="mQuantity" />
+    <result column="mS_time" jdbcType="TIMESTAMP" property="msTime" />
+    <result column="mE_time" jdbcType="TIMESTAMP" property="meTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    m_record_id, m_type, m_method, m_quantity, mS_time, mE_time
+  </sql>
+  <select id="selectByExample" parameterType="com.yyjh.pojo.MedicineRecordExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from medicine_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.yyjh.pojo.MedicineRecordExample">
+    delete from medicine_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yyjh.pojo.MedicineRecord">
+    insert into medicine_record (m_record_id, m_type, m_method, 
+      m_quantity, mS_time, mE_time
+      )
+    values (#{mRecordId,jdbcType=INTEGER}, #{mType,jdbcType=VARCHAR}, #{mMethod,jdbcType=VARCHAR}, 
+      #{mQuantity,jdbcType=VARCHAR}, #{msTime,jdbcType=TIMESTAMP}, #{meTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyjh.pojo.MedicineRecord">
+    insert into medicine_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mRecordId != null">
+        m_record_id,
+      </if>
+      <if test="mType != null">
+        m_type,
+      </if>
+      <if test="mMethod != null">
+        m_method,
+      </if>
+      <if test="mQuantity != null">
+        m_quantity,
+      </if>
+      <if test="msTime != null">
+        mS_time,
+      </if>
+      <if test="meTime != null">
+        mE_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mRecordId != null">
+        #{mRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="mType != null">
+        #{mType,jdbcType=VARCHAR},
+      </if>
+      <if test="mMethod != null">
+        #{mMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="mQuantity != null">
+        #{mQuantity,jdbcType=VARCHAR},
+      </if>
+      <if test="msTime != null">
+        #{msTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="meTime != null">
+        #{meTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yyjh.pojo.MedicineRecordExample" resultType="java.lang.Long">
+    select count(*) from medicine_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update medicine_record
+    <set>
+      <if test="record.mRecordId != null">
+        m_record_id = #{record.mRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mType != null">
+        m_type = #{record.mType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mMethod != null">
+        m_method = #{record.mMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mQuantity != null">
+        m_quantity = #{record.mQuantity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msTime != null">
+        mS_time = #{record.msTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.meTime != null">
+        mE_time = #{record.meTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update medicine_record
+    set m_record_id = #{record.mRecordId,jdbcType=INTEGER},
+      m_type = #{record.mType,jdbcType=VARCHAR},
+      m_method = #{record.mMethod,jdbcType=VARCHAR},
+      m_quantity = #{record.mQuantity,jdbcType=VARCHAR},
+      mS_time = #{record.msTime,jdbcType=TIMESTAMP},
+      mE_time = #{record.meTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

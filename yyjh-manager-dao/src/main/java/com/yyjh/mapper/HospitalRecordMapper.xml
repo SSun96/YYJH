@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyjh.mapper.HospitalRecordMapper">
+  <resultMap id="BaseResultMap" type="com.yyjh.pojo.HospitalRecord">
+    <result column="h_record_id" jdbcType="INTEGER" property="hRecordId" />
+    <result column="h_name" jdbcType="VARCHAR" property="hName" />
+    <result column="h_department" jdbcType="VARCHAR" property="hDepartment" />
+    <result column="inpatientWard" jdbcType="VARCHAR" property="inpatientward" />
+    <result column="bed_id" jdbcType="INTEGER" property="bedId" />
+    <result column="inhospitalID" jdbcType="INTEGER" property="inhospitalid" />
+    <result column="enterTime" jdbcType="TIMESTAMP" property="entertime" />
+    <result column="leaveTime" jdbcType="TIMESTAMP" property="leavetime" />
+    <result column="HospitalDoctorname" jdbcType="VARCHAR" property="hospitaldoctorname" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yyjh.pojo.HospitalRecordWithBLOBs">
+    <result column="patientCondition" jdbcType="LONGVARCHAR" property="patientcondition" />
+    <result column="d_advice" jdbcType="LONGVARCHAR" property="dAdvice" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    h_record_id, h_name, h_department, inpatientWard, bed_id, inhospitalID, enterTime, 
+    leaveTime, HospitalDoctorname
+  </sql>
+  <sql id="Blob_Column_List">
+    patientCondition, d_advice
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.yyjh.pojo.HospitalRecordExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from hospital_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.yyjh.pojo.HospitalRecordExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from hospital_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.yyjh.pojo.HospitalRecordExample">
+    delete from hospital_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yyjh.pojo.HospitalRecordWithBLOBs">
+    insert into hospital_record (h_record_id, h_name, h_department, 
+      inpatientWard, bed_id, inhospitalID, 
+      enterTime, leaveTime, HospitalDoctorname, 
+      patientCondition, d_advice)
+    values (#{hRecordId,jdbcType=INTEGER}, #{hName,jdbcType=VARCHAR}, #{hDepartment,jdbcType=VARCHAR}, 
+      #{inpatientward,jdbcType=VARCHAR}, #{bedId,jdbcType=INTEGER}, #{inhospitalid,jdbcType=INTEGER}, 
+      #{entertime,jdbcType=TIMESTAMP}, #{leavetime,jdbcType=TIMESTAMP}, #{hospitaldoctorname,jdbcType=VARCHAR}, 
+      #{patientcondition,jdbcType=LONGVARCHAR}, #{dAdvice,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyjh.pojo.HospitalRecordWithBLOBs">
+    insert into hospital_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hRecordId != null">
+        h_record_id,
+      </if>
+      <if test="hName != null">
+        h_name,
+      </if>
+      <if test="hDepartment != null">
+        h_department,
+      </if>
+      <if test="inpatientward != null">
+        inpatientWard,
+      </if>
+      <if test="bedId != null">
+        bed_id,
+      </if>
+      <if test="inhospitalid != null">
+        inhospitalID,
+      </if>
+      <if test="entertime != null">
+        enterTime,
+      </if>
+      <if test="leavetime != null">
+        leaveTime,
+      </if>
+      <if test="hospitaldoctorname != null">
+        HospitalDoctorname,
+      </if>
+      <if test="patientcondition != null">
+        patientCondition,
+      </if>
+      <if test="dAdvice != null">
+        d_advice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hRecordId != null">
+        #{hRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="hName != null">
+        #{hName,jdbcType=VARCHAR},
+      </if>
+      <if test="hDepartment != null">
+        #{hDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="inpatientward != null">
+        #{inpatientward,jdbcType=VARCHAR},
+      </if>
+      <if test="bedId != null">
+        #{bedId,jdbcType=INTEGER},
+      </if>
+      <if test="inhospitalid != null">
+        #{inhospitalid,jdbcType=INTEGER},
+      </if>
+      <if test="entertime != null">
+        #{entertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leavetime != null">
+        #{leavetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hospitaldoctorname != null">
+        #{hospitaldoctorname,jdbcType=VARCHAR},
+      </if>
+      <if test="patientcondition != null">
+        #{patientcondition,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dAdvice != null">
+        #{dAdvice,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yyjh.pojo.HospitalRecordExample" resultType="java.lang.Long">
+    select count(*) from hospital_record
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update hospital_record
+    <set>
+      <if test="record.hRecordId != null">
+        h_record_id = #{record.hRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="record.hName != null">
+        h_name = #{record.hName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hDepartment != null">
+        h_department = #{record.hDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inpatientward != null">
+        inpatientWard = #{record.inpatientward,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bedId != null">
+        bed_id = #{record.bedId,jdbcType=INTEGER},
+      </if>
+      <if test="record.inhospitalid != null">
+        inhospitalID = #{record.inhospitalid,jdbcType=INTEGER},
+      </if>
+      <if test="record.entertime != null">
+        enterTime = #{record.entertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.leavetime != null">
+        leaveTime = #{record.leavetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hospitaldoctorname != null">
+        HospitalDoctorname = #{record.hospitaldoctorname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patientcondition != null">
+        patientCondition = #{record.patientcondition,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.dAdvice != null">
+        d_advice = #{record.dAdvice,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update hospital_record
+    set h_record_id = #{record.hRecordId,jdbcType=INTEGER},
+      h_name = #{record.hName,jdbcType=VARCHAR},
+      h_department = #{record.hDepartment,jdbcType=VARCHAR},
+      inpatientWard = #{record.inpatientward,jdbcType=VARCHAR},
+      bed_id = #{record.bedId,jdbcType=INTEGER},
+      inhospitalID = #{record.inhospitalid,jdbcType=INTEGER},
+      enterTime = #{record.entertime,jdbcType=TIMESTAMP},
+      leaveTime = #{record.leavetime,jdbcType=TIMESTAMP},
+      HospitalDoctorname = #{record.hospitaldoctorname,jdbcType=VARCHAR},
+      patientCondition = #{record.patientcondition,jdbcType=LONGVARCHAR},
+      d_advice = #{record.dAdvice,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update hospital_record
+    set h_record_id = #{record.hRecordId,jdbcType=INTEGER},
+      h_name = #{record.hName,jdbcType=VARCHAR},
+      h_department = #{record.hDepartment,jdbcType=VARCHAR},
+      inpatientWard = #{record.inpatientward,jdbcType=VARCHAR},
+      bed_id = #{record.bedId,jdbcType=INTEGER},
+      inhospitalID = #{record.inhospitalid,jdbcType=INTEGER},
+      enterTime = #{record.entertime,jdbcType=TIMESTAMP},
+      leaveTime = #{record.leavetime,jdbcType=TIMESTAMP},
+      HospitalDoctorname = #{record.hospitaldoctorname,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

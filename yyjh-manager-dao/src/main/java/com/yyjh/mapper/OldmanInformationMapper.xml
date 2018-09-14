@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyjh.mapper.OldmanInformationMapper">
+  <resultMap id="BaseResultMap" type="com.yyjh.pojo.OldmanInformation">
+    <result column="xueya" jdbcType="VARCHAR" property="xueya" />
+    <result column="xuetang" jdbcType="VARCHAR" property="xuetang" />
+    <result column="xueyang" jdbcType="VARCHAR" property="xueyang" />
+    <result column="shengaotizhong" jdbcType="VARCHAR" property="shengaotizhong" />
+    <result column="zhifanglv" jdbcType="VARCHAR" property="zhifanglv" />
+    <result column="xinlv" jdbcType="VARCHAR" property="xinlv" />
+    <result column="tiwen" jdbcType="VARCHAR" property="tiwen" />
+    <result column="xuezhi" jdbcType="VARCHAR" property="xuezhi" />
+    <result column="I_time" jdbcType="TIMESTAMP" property="iTime" />
+    <result column="information_id" jdbcType="INTEGER" property="informationId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    xueya, xuetang, xueyang, shengaotizhong, zhifanglv, xinlv, tiwen, xuezhi, I_time, 
+    information_id
+  </sql>
+  <select id="selectByExample" parameterType="com.yyjh.pojo.OldmanInformationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oldmaninformation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.yyjh.pojo.OldmanInformationExample">
+    delete from oldmaninformation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yyjh.pojo.OldmanInformation">
+    insert into oldmaninformation (xueya, xuetang, xueyang, 
+      shengaotizhong, zhifanglv, xinlv, 
+      tiwen, xuezhi, I_time, 
+      information_id)
+    values (#{xueya,jdbcType=VARCHAR}, #{xuetang,jdbcType=VARCHAR}, #{xueyang,jdbcType=VARCHAR}, 
+      #{shengaotizhong,jdbcType=VARCHAR}, #{zhifanglv,jdbcType=VARCHAR}, #{xinlv,jdbcType=VARCHAR}, 
+      #{tiwen,jdbcType=VARCHAR}, #{xuezhi,jdbcType=VARCHAR}, #{iTime,jdbcType=TIMESTAMP}, 
+      #{informationId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yyjh.pojo.OldmanInformation">
+    insert into oldmaninformation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="xueya != null">
+        xueya,
+      </if>
+      <if test="xuetang != null">
+        xuetang,
+      </if>
+      <if test="xueyang != null">
+        xueyang,
+      </if>
+      <if test="shengaotizhong != null">
+        shengaotizhong,
+      </if>
+      <if test="zhifanglv != null">
+        zhifanglv,
+      </if>
+      <if test="xinlv != null">
+        xinlv,
+      </if>
+      <if test="tiwen != null">
+        tiwen,
+      </if>
+      <if test="xuezhi != null">
+        xuezhi,
+      </if>
+      <if test="iTime != null">
+        I_time,
+      </if>
+      <if test="informationId != null">
+        information_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="xueya != null">
+        #{xueya,jdbcType=VARCHAR},
+      </if>
+      <if test="xuetang != null">
+        #{xuetang,jdbcType=VARCHAR},
+      </if>
+      <if test="xueyang != null">
+        #{xueyang,jdbcType=VARCHAR},
+      </if>
+      <if test="shengaotizhong != null">
+        #{shengaotizhong,jdbcType=VARCHAR},
+      </if>
+      <if test="zhifanglv != null">
+        #{zhifanglv,jdbcType=VARCHAR},
+      </if>
+      <if test="xinlv != null">
+        #{xinlv,jdbcType=VARCHAR},
+      </if>
+      <if test="tiwen != null">
+        #{tiwen,jdbcType=VARCHAR},
+      </if>
+      <if test="xuezhi != null">
+        #{xuezhi,jdbcType=VARCHAR},
+      </if>
+      <if test="iTime != null">
+        #{iTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="informationId != null">
+        #{informationId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yyjh.pojo.OldmanInformationExample" resultType="java.lang.Long">
+    select count(*) from oldmaninformation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update oldmaninformation
+    <set>
+      <if test="record.xueya != null">
+        xueya = #{record.xueya,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xuetang != null">
+        xuetang = #{record.xuetang,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xueyang != null">
+        xueyang = #{record.xueyang,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shengaotizhong != null">
+        shengaotizhong = #{record.shengaotizhong,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zhifanglv != null">
+        zhifanglv = #{record.zhifanglv,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xinlv != null">
+        xinlv = #{record.xinlv,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tiwen != null">
+        tiwen = #{record.tiwen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xuezhi != null">
+        xuezhi = #{record.xuezhi,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iTime != null">
+        I_time = #{record.iTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.informationId != null">
+        information_id = #{record.informationId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update oldmaninformation
+    set xueya = #{record.xueya,jdbcType=VARCHAR},
+      xuetang = #{record.xuetang,jdbcType=VARCHAR},
+      xueyang = #{record.xueyang,jdbcType=VARCHAR},
+      shengaotizhong = #{record.shengaotizhong,jdbcType=VARCHAR},
+      zhifanglv = #{record.zhifanglv,jdbcType=VARCHAR},
+      xinlv = #{record.xinlv,jdbcType=VARCHAR},
+      tiwen = #{record.tiwen,jdbcType=VARCHAR},
+      xuezhi = #{record.xuezhi,jdbcType=VARCHAR},
+      I_time = #{record.iTime,jdbcType=TIMESTAMP},
+      information_id = #{record.informationId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
